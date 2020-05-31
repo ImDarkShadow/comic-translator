@@ -1,0 +1,34 @@
+{
+  "name": "comic-translator",
+  "version": "1.0.0",
+  "description": "A module to automatically translate comic.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ImDarkShadow/comic-translator.git"
+  },
+  "keywords": [
+    "comic",
+    "manga",
+    "manhua",
+    "webtoon",
+    "manhawa"
+  ],
+  "author": "Pritam Das",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/ImDarkShadow/comic-translator/issues"
+  },
+  "homepage": "https://github.com/ImDarkShadow/comic-translator#readme",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
+    "cheerio-advanced-selectors": "^2.0.1",
+    "google-translate-open-api": "^1.3.3",
+    "got": "^11.1.4",
+    "jimp": "^0.12.1",
+    "prompt-sync": "^4.2.0"
+  }
+}
