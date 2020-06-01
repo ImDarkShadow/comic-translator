@@ -7,8 +7,8 @@ const chinese = async (ocrData) => {
     let clusterIndex = [] ;
     let tempClusterObj = {
       clusterText : '',
-      left : 0,
-      top : 0,
+      left : 99999,
+      top : 99999,
       right : 0,
       down : 0
     };
@@ -43,22 +43,38 @@ const chinese = async (ocrData) => {
 
     for (let lineNumber = 0, idx = 0; lineNumber < lines.length; lineNumber++) {
       if (clusterIndex[idx] === lineNumber || lineNumber === lines.length - 1) {
-
-
-
+        if(lines[lineNumber].MinTop > tempClusterObj.down){
+          tempClusterObj.down = lines[lineNumber].MinTop;
+        }
         tempClusterObj.clusterText += lines[lineNumber].LineText;
-        // console.log(tempClusterObj.clusterText);
         cluster[idx] = {};
         Object.assign(cluster[idx],tempClusterObj);
-        //console.log(tempClusterObj.clusterText);
+
         tempClusterObj.clusterText = '';
+        tempClusterObj.top = 99999;
+        tempClusterObj.left = 99999;
+        tempClusterObj.right = 0;
+        tempClusterObj.down = 0;
 
         idx++;
 
       } else {
+        if(lines[lineNumber].MinTop < tempClusterObj.top){
+          tempClusterObj.top = lines[lineNumber].MinTop;
+        }
+        if(lines[lineNumber].Words[0].Left < tempClusterObj.left){
+          tempClusterObj.left = lines[lineNumber].Words[0].Left;
+        }
+        if(lines[lineNumber].Words[lines[lineNumber].Words.length -1].Left > tempClusterObj.right){
+          tempClusterObj.right = lines[lineNumber].Words[lines[lineNumber].Words.length -1].Left;
+          //tempClusterObj.right += lines[lineNumber].MaxHeight;
+        }
         tempClusterObj.clusterText += lines[lineNumber].LineText;
       }
     }
+    //for (let lineNumber = 0, idx = 0; lineNumber < lines.length; lineNumber++) {
+
+   // }
     return cluster;
 
   } catch (error) {
