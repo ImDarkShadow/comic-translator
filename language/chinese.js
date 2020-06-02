@@ -12,7 +12,7 @@ const chinese = async (ocrData) => {
       right : 0,
       down : 0
     };
-    let avgHeight = 0;
+    let avgHeight = 0,imageText = '';
     for (let idx = 0; idx < lines.length; idx++) {
       avgHeight += lines[idx].MaxHeight;
     }
@@ -45,8 +45,10 @@ const chinese = async (ocrData) => {
       if (clusterIndex[idx] === lineNumber || lineNumber === lines.length - 1) {
         if(lines[lineNumber].MinTop > tempClusterObj.down){
           tempClusterObj.down = lines[lineNumber].MinTop;
+          tempClusterObj.down += lines[lineNumber].MaxHeight;
         }
         tempClusterObj.clusterText += lines[lineNumber].LineText;
+        imageText += tempClusterObj.clusterText + '\n';
         cluster[idx] = {};
         Object.assign(cluster[idx],tempClusterObj);
 
@@ -67,14 +69,15 @@ const chinese = async (ocrData) => {
         }
         if(lines[lineNumber].Words[lines[lineNumber].Words.length -1].Left > tempClusterObj.right){
           tempClusterObj.right = lines[lineNumber].Words[lines[lineNumber].Words.length -1].Left;
-          //tempClusterObj.right += lines[lineNumber].MaxHeight;
+          tempClusterObj.right += lines[lineNumber].MaxHeight;
         }
         tempClusterObj.clusterText += lines[lineNumber].LineText;
       }
     }
     //for (let lineNumber = 0, idx = 0; lineNumber < lines.length; lineNumber++) {
-
+//console.log(imageText.split('\n'));
    // }
+    cluster.push(imageText);
     return cluster;
 
   } catch (error) {
