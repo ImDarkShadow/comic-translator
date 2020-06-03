@@ -5,7 +5,7 @@ const Chinese = require('./language/chinese');
 const translate = require('./lib/translate');
 const print = require('./lib/print');
 let comicLink = 'https://rawdevart.com/comic/against-gods/chapter-185/';
-let apiKey = 'ca9d212ae488957';
+let apiKey = 'helloworld';
 let comicLanguage = 'chs';
 (async () => {
   try {
