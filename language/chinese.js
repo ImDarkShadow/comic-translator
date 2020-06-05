@@ -27,15 +27,17 @@ const chinese = async (ocrData) => {
     for (let idx = 0; idx < lines.length - 1; idx++) {
 
       if ((lines[idx].Words[lines[idx].Words.length - 1].WordText) !== '．' && (lines[idx].Words[lines[idx].Words.length - 1].WordText) !== '！' && (lines[idx].Words[lines[idx].Words.length - 1].WordText) !== '？' && (lines[idx].Words[lines[idx].Words.length - 1].WordText) != '。' && (lines[idx].Words[lines[idx].Words.length - 1].WordText) != '“') {
-
-        if ((lines[idx].MinTop + lines[idx].MaxHeight * 2) > lines[idx + 1].MinTop && lines[idx].Words[lines[idx].Words.length - 1].Left + lines[idx].MaxHeight * 2 > lines[idx].Words[0].Left) {
+console.log('if-----'+idx);
+        if ((lines[idx].MinTop + lines[idx].MaxHeight * 2) > lines[idx + 1].MinTop && lines[idx].Words[lines[idx].Words.length - 1].Left + lines[idx].MaxHeight * 2 > lines[idx+1].Words[0].Left) {
 
         } else {
+          console.log('if-----else'+idx);
           clusterIndex.push(idx);
         }
       } else {
-        if ((lines[idx].MinTop + lines[idx].MaxHeight * 2 < lines[idx + 1].MinTop) || ((lines[idx].Words[0].Left + lines[idx].MaxHeight * 2) < lines[idx + 1].Words[0].Left)) {
+        if ((lines[idx].MinTop + lines[idx].MaxHeight * 2 < lines[idx + 1].MinTop)  || ((lines[idx].Words[0].Left + lines[idx].MaxHeight * 2) < lines[idx + 1].Words[0].Left)) {
           clusterIndex.push(idx);
+          console.log('else-----if'+idx);
         }
       }
     }
@@ -46,6 +48,18 @@ const chinese = async (ocrData) => {
         if(lines[lineNumber].MinTop > tempClusterObj.down){
           tempClusterObj.down = lines[lineNumber].MinTop;
           tempClusterObj.down += lines[lineNumber].MaxHeight;
+        }
+        if(lineNumber === lines.length - 1 || clusterIndex[idx] === lineNumber){
+          if(lines[lineNumber].MinTop < tempClusterObj.top){
+            tempClusterObj.top = lines[lineNumber].MinTop;
+          }
+          if(lines[lineNumber].Words[0].Left < tempClusterObj.left){
+            tempClusterObj.left = lines[lineNumber].Words[0].Left;
+          }
+          if(lines[lineNumber].Words[lines[lineNumber].Words.length -1].Left > tempClusterObj.right){
+            tempClusterObj.right = lines[lineNumber].Words[lines[lineNumber].Words.length -1].Left;
+            tempClusterObj.right += lines[lineNumber].MaxHeight;
+          }
         }
         tempClusterObj.clusterText += lines[lineNumber].LineText;
         imageText += tempClusterObj.clusterText + '\n';
@@ -78,6 +92,8 @@ const chinese = async (ocrData) => {
 //console.log(imageText.split('\n'));
    // }
     cluster.push(imageText);
+    console.log(cluster);
+    console.log(clusterIndex);
     return cluster;
 
   } catch (error) {

@@ -29,6 +29,7 @@
     "cheerio-advanced-selectors": "^2.0.1",
     "got": "^11.1.4",
     "jimp": "^0.12.1",
+    "ocr-space-api": "^1.0.1",
     "prompt-sync": "^4.2.0"
   }
 }
