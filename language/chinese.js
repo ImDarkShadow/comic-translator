@@ -26,7 +26,7 @@ const chinese = async (ocrData) => {
     }
     for (let idx = 0; idx < lines.length - 1; idx++) {
 
-      if ((lines[idx].Words[lines[idx].Words.length - 1].WordText) !== '．' && (lines[idx].Words[lines[idx].Words.length - 1].WordText) !== '！' && (lines[idx].Words[lines[idx].Words.length - 1].WordText) !== '？' && (lines[idx].Words[lines[idx].Words.length - 1].WordText) != '。' && (lines[idx].Words[lines[idx].Words.length - 1].WordText) != '“') {
+     /* if ((lines[idx].Words[lines[idx].Words.length - 1].WordText) !== '．' && (lines[idx].Words[lines[idx].Words.length - 1].WordText) !== '！' && (lines[idx].Words[lines[idx].Words.length - 1].WordText) !== '？' && (lines[idx].Words[lines[idx].Words.length - 1].WordText) != '。' && (lines[idx].Words[lines[idx].Words.length - 1].WordText) != '“') {
 console.log('if-----'+idx);
         if ((lines[idx].MinTop + lines[idx].MaxHeight * 2) > lines[idx + 1].MinTop && lines[idx].Words[lines[idx].Words.length - 1].Left + lines[idx].MaxHeight * 2 > lines[idx+1].Words[0].Left) {
 
@@ -38,6 +38,30 @@ console.log('if-----'+idx);
         if ((lines[idx].MinTop + lines[idx].MaxHeight * 2 < lines[idx + 1].MinTop)  || ((lines[idx].Words[0].Left + lines[idx].MaxHeight * 2) < lines[idx + 1].Words[0].Left)) {
           clusterIndex.push(idx);
           console.log('else-----if'+idx);
+        }
+      }*/
+      if ((lines[idx].Words[lines[idx].Words.length - 1].WordText) !== '．' && (lines[idx].Words[lines[idx].Words.length - 1].WordText) !== '！' && (lines[idx].Words[lines[idx].Words.length - 1].WordText) !== '？' && (lines[idx].Words[lines[idx].Words.length - 1].WordText) != '。' && (lines[idx].Words[lines[idx].Words.length - 1].WordText) != '“') {
+        console.log('if ---' + idx);
+        if ((lines[idx].MinTop + lines[idx].MaxHeight * 2) > lines[idx + 1].MinTop && lines[idx].Words[lines[idx].Words.length - 1].Left + lines[idx].MaxHeight * 2 > lines[idx].Words[0].Left) {
+          console.log('if --- if' + idx);
+        } else {
+          console.log('else-----if ---' + idx);
+          // if(lines[idx].Words[0].Left > lines[idx].Words[lines[idx].Words.length - 1].Left + lines[idx].MaxHeight){
+          clusterIndex.push(idx);
+          // console.log('else-----if ---if' + idx);
+          //}
+        }
+      } else {
+        console.log('else---' + idx);
+        if ((lines[idx].MinTop + lines[idx].MaxHeight * 2 < lines[idx + 1].MinTop) || ((lines[idx].Words[0].Left + lines[idx].MaxHeight * 2) < lines[idx + 1].Words[0].Left)) {
+
+          clusterIndex.push(idx);
+          console.log('else-----if ---' + idx);
+          // }
+        }else if (lines[idx].Words[0].Left + lines[idx].MaxHeight > lines[idx+1].Words[Math.ceil(lines[idx].Words.length/2)].Left){
+          console.log('else-----if --- elseif--' + idx);
+          //}
+          clusterIndex.push(idx);
         }
       }
     }
