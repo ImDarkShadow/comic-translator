@@ -28,7 +28,7 @@
     "cheerio": "^1.0.0-rc.3",
     "cheerio-advanced-selectors": "^2.0.1",
     "fast-sort": "^2.2.0",
-    "got": "^11.1.4",
+    "got": "^11.8.5",
     "jimp": "^0.12.1",
     "ocr-space-api": "^1.0.1",
     "prompt-sync": "^4.2.0"
