@@ -24,11 +24,11 @@
   },
   "homepage": "https://github.com/ImDarkShadow/comic-translator#readme",
   "dependencies": {
-    "@vitalets/google-translate-api": "^3.0.0",
+    "@vitalets/google-translate-api": "^9.1.0",
     "cheerio": "^1.0.0-rc.3",
     "cheerio-advanced-selectors": "^2.0.1",
     "fast-sort": "^2.2.0",
-    "got": "^11.1.4",
+    "got": "^12.5.3",
     "jimp": "^0.12.1",
     "ocr-space-api": "^1.0.1",
     "prompt-sync": "^4.2.0"
